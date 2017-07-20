@@ -40,7 +40,7 @@ names = np.array(stocks)[indices[0]]
 lreturns = np.diff(np.log(prices),n=1, axis=0)
 data = [prices, dates, names, lreturns]
 
-pickle.dump((prices, dates, names, lreturns), open( "SP500", "wb" ) )
+pickle.dump((prices, dates, names, lreturns), open( "SP500.p", "wb" ) )
 
 
 
