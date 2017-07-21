@@ -7,10 +7,10 @@ import datetime
 import numpy as np
 import pickle
 
-start = '20070101'
+start = '20060101'
 end = str(datetime.date.today()).replace("-","")
 
-tol_level = 0.1
+tol_level = 0.05
 
 dates = np.arange(datetime.datetime.strptime(start,"%Y%m%d"), datetime.date.today(), datetime.timedelta(days=1)).astype(datetime.datetime)
 prices = np.empty((len(dates),len(stocks)))
@@ -30,7 +30,7 @@ for i in range(len(stocks)):
 #remove non trading days
 indices = np.where(np.sum(np.isnan(prices),axis=1)!=505)
 prices = prices[indices[0],:]
-dates = dates[indices[0]]
+dates = np.array(dates[indices[0]], dtype='datetime64')
 
 #remove companies with insufficient info
 indices = np.where(np.divide(np.sum(np.isnan(prices),axis=0),len(dates))<tol_level)
@@ -40,7 +40,15 @@ names = np.array(stocks)[indices[0]]
 lreturns = np.diff(np.log(prices),n=1, axis=0)
 data = [prices, dates, names, lreturns]
 
-pickle.dump((prices, dates, names, lreturns), open( "SP500.p", "wb" ) )
 
 
+pickle.dump((prices, dates, names, lreturns), open( "../SP500.p", "wb" ) )
+
+
+#download pure SP500
+sp500_raw = yqd.load_yahoo_quote('^GSPC', start, end)
+f = open('../pureSP500.csv', 'w')
+for x in sp500_raw:
+	f.write(x + '\n')  # python will convert \n to os.linesep
+f.close()
 
