@@ -49,6 +49,6 @@ pickle.dump((prices, dates, names, lreturns), open( "../SP500.p", "wb" ) )
 sp500_raw = yqd.load_yahoo_quote('^GSPC', start, end)
 f = open('../pureSP500.csv', 'w')
 for x in sp500_raw:
-	f.write(x + '\n')  # python will convert \n to os.linesep
+	f.write(x + '\n') 
 f.close()
 
