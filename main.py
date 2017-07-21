@@ -1,7 +1,7 @@
 #the yahoo_quote_download package comes from 
 #https://github.com/c0redumb/yahoo_quote_download
 
-from yahoo_quote_download import yqd
+from yahoo_quote_download.yahoo_quote_download import yqd
 from stocks import stocks
 import datetime 
 import numpy as np
